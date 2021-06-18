@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>PackageName</PackageId>
+        <Product>PackageName</Product>
+        <PackageVersion>0.0.0</PackageVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+</Project>
