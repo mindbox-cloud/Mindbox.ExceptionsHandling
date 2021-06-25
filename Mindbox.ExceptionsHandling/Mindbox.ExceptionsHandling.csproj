@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>Mindbox.ExceptionsHandling</RootNamespace>
+        <PackageVersion>$(VersionMajor).$(VersionMinor).$(BuildNumber)</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
