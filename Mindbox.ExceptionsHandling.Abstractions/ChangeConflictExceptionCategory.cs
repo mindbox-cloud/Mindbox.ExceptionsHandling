@@ -6,11 +6,11 @@ namespace Mindbox.ExceptionsHandling
 {
 	public class ChangeConflictExceptionCategory : ExceptionCategory
 	{
-		public ChangeConflictExceptionCategory(
-			Func<Exception, bool> exceptionFilter, LogLevel logLevel = LogLevel.Warning) : base(exceptionFilter, logLevel)
+		public ChangeConflictExceptionCategory(Func<Exception, bool> exceptionFilter) : base(exceptionFilter)
 		{
 		}
 
 		public override string Name => ExceptionCategoryNames.ChangeConflict;
+		public override LogLevel LogLevel => LogLevel.Warning;
 	}
 }

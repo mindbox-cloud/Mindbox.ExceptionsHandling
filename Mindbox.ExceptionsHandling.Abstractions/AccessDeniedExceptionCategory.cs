@@ -6,11 +6,11 @@ namespace Mindbox.ExceptionsHandling
 {
 	public class AccessDeniedExceptionCategory : ExceptionCategory
 	{
-		public AccessDeniedExceptionCategory(
-			Func<Exception, bool> exceptionFilter, LogLevel logLevel = LogLevel.Error) : base(exceptionFilter, logLevel)
+		public AccessDeniedExceptionCategory(Func<Exception, bool> exceptionFilter) : base(exceptionFilter)
 		{
 		}
 
 		public override string Name => ExceptionCategoryNames.AccessDenied;
+		public override LogLevel LogLevel => LogLevel.Error;
 	}
 }

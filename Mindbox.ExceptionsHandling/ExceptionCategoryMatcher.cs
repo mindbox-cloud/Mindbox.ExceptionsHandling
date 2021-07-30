@@ -29,8 +29,7 @@ namespace Mindbox.ExceptionsHandling
 			return exception
 				.GetAllExceptions()
 				.Select(TryGetTopCategory)
-				.Where(category => category != null)
-				.FirstOrDefault() ?? DefaultExceptionCategory.Instance;
+				.FirstOrDefault(category => category != null) ?? DefaultExceptionCategory.Instance;
 		}
 
 		public virtual IExceptionCategory? TryGetTopCategory(Exception exception)

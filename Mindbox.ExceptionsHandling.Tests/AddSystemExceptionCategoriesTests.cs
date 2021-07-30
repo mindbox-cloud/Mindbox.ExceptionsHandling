@@ -31,16 +31,6 @@ namespace Mindbox.ExceptionsHandling.Tests
 		}
 		
 		[TestMethod]
-		public void OutOfMemoryException()
-		{
-			var category = GetCategory(new OutOfMemoryException());
-			
-			Assert.IsNotNull(category);
-			Assert.IsInstanceOfType(category, typeof(ServiceUnavailableExceptionCategory));
-			Assert.AreEqual(LogLevel.Critical, category!.LogLevel);
-		}
-		
-		[TestMethod]
 		public void UnknownException()
 		{
 			var category = GetCategory(new Exception());
