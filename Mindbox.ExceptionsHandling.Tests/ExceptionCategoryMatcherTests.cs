@@ -371,43 +371,41 @@ namespace Mindbox.ExceptionsHandling.Tests
 		private IExceptionCategoryMatcher CreateExceptionCategoryMatcher() => new ExceptionCategoryMatcher(
 			new IExceptionCategory[]
 			{
-				new FirstExceptionCategory(exception => 
-					exception is InvalidOperationException && exception.Message == "First category", 
-					LogLevel.Error),
-				new FirstExceptionSubCategory(exception => 
-					exception is InvalidOperationException && exception.Message == "First subcategory", 
-					LogLevel.Warning),
+				new FirstExceptionCategory(
+					exception => exception is InvalidOperationException && exception.Message == "First category"),
+				new FirstExceptionSubCategory(
+					exception => exception is InvalidOperationException && exception.Message == "First subcategory"),
 				new SecondExceptionCategory(exception => 
-					exception is InvalidOperationException && exception.Message == "Second category", 
-					LogLevel.Information),
-				new SecondExceptionCategory(
-					exception => exception is InvalidOperationException && exception.Message.Contains("Second category"), 
-					LogLevel.None)
+					exception is InvalidOperationException && exception.Message == "Second category")
 			});
 		
 		private class FirstExceptionCategory : ExceptionCategory
 		{
-			public FirstExceptionCategory(Func<Exception, bool> exceptionFilter, LogLevel logLevel) : base(exceptionFilter, logLevel)
+			public FirstExceptionCategory(Func<Exception, bool> exceptionFilter) : base(exceptionFilter)
 			{
 			}
 
 			public override string Name => "FirstExceptionCategory";
+			public override LogLevel LogLevel => LogLevel.Error;
 		}
 		
 		private class FirstExceptionSubCategory : FirstExceptionCategory
 		{
-			public FirstExceptionSubCategory(Func<Exception, bool> exceptionFilter, LogLevel logLevel) : base(exceptionFilter, logLevel)
+			public FirstExceptionSubCategory(Func<Exception, bool> exceptionFilter) : base(exceptionFilter)
 			{
 			}
+
+			public override LogLevel LogLevel => LogLevel.Warning;
 		}
 		
 		private class SecondExceptionCategory : ExceptionCategory
 		{
-			public SecondExceptionCategory(Func<Exception, bool> exceptionFilter, LogLevel logLevel) : base(exceptionFilter, logLevel)
+			public SecondExceptionCategory(Func<Exception, bool> exceptionFilter) : base(exceptionFilter)
 			{
 			}
 
 			public override string Name => "SecondExceptionCategory";
+			public override LogLevel LogLevel => LogLevel.Information;
 		}
 	}
 }
