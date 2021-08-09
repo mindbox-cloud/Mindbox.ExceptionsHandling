@@ -1,0 +1,31 @@
+name: Main Build
+
+on:
+  push:
+    branches:
+      - publish-dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup .NET Core 5.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Setup .NET Core 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build ./Mindbox.ExceptionsHandling.sln --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-restore
+      - name: Pack
+        run: dotnet pack ./Mindbox.ExceptionsHandling.sln -c Release -p:BuildNumber=${{ github.run_number }} -p:VersionTag="-dev"
+      - name: Publish
+        run: dotnet nuget push **/*.nupkg -k ${{secrets.MINDBOX_NUGET_AUTH_TOKEN}} -s https://www.nuget.org/api/v2/package
