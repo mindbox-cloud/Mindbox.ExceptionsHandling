@@ -9,5 +9,6 @@ namespace Mindbox.ExceptionsHandling
 		public const string InvalidRequest = "InvalidRequest";
 		public const string ServiceUnavailable = "ServiceUnavailable";
 		public const string TooManyRequests = "TooManyRequests";
+		public const string ClientChangeConflict = "ClientChangeConflict";
 	}
 }
