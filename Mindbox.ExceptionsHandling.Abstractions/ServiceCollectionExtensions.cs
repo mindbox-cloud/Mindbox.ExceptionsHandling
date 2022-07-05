@@ -1,10 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Mindbox.ExceptionsHandling
+namespace Mindbox.ExceptionsHandling;
+
+public static class ServiceCollectionExtensions
 {
-	public static class ServiceCollectionExtensions
-	{
-		public static IServiceCollection AddExceptionCategory(
-			this IServiceCollection services, IExceptionCategory exceptionCategory) => services.AddSingleton(exceptionCategory);
-	}
+	public static IServiceCollection AddExceptionCategory(
+		this IServiceCollection services, IExceptionCategory exceptionCategory) => services.AddSingleton(exceptionCategory);
 }
