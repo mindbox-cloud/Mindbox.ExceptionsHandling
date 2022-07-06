@@ -2,12 +2,11 @@ using System;
 
 using Microsoft.Extensions.Logging;
 
-namespace Mindbox.ExceptionsHandling
+namespace Mindbox.ExceptionsHandling;
+
+public interface IExceptionCategory
 {
-	public interface IExceptionCategory
-	{
-		string Name { get; }
-		LogLevel LogLevel { get; }
-		bool DoesMatchTopException(Exception exception);
-	}
+	string Name { get; }
+	LogLevel LogLevel { get; }
+	bool DoesMatchTopException(Exception exception);
 }

@@ -2,20 +2,19 @@ using System;
 
 using Microsoft.Extensions.Logging;
 
-namespace Mindbox.ExceptionsHandling
+namespace Mindbox.ExceptionsHandling;
+
+public abstract class ExceptionCategory : IExceptionCategory
 {
-	public abstract class ExceptionCategory : IExceptionCategory
+	private readonly Func<Exception, bool> _exceptionFilter;
+
+	protected ExceptionCategory(Func<Exception, bool> exceptionFilter)
 	{
-		private readonly Func<Exception, bool> exceptionFilter;
-
-		protected ExceptionCategory(Func<Exception, bool> exceptionFilter)
-		{
-			this.exceptionFilter = exceptionFilter;
-		}
-		
-		public abstract string Name { get; }
-		public abstract LogLevel LogLevel { get; }
-
-		public bool DoesMatchTopException(Exception exception) => exceptionFilter(exception);
+		_exceptionFilter = exceptionFilter;
 	}
+
+	public abstract string Name { get; }
+	public abstract LogLevel LogLevel { get; }
+
+	public bool DoesMatchTopException(Exception exception) => _exceptionFilter(exception);
 }

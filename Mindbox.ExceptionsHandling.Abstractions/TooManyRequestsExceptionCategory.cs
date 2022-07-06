@@ -2,17 +2,14 @@ using System;
 
 using Microsoft.Extensions.Logging;
 
-using Mindbox.ExceptionsHandling;
+namespace Mindbox.ExceptionsHandling;
 
-namespace Mindbox.ExceptionsHandling
+public class TooManyRequestsExceptionCategory : ExceptionCategory
 {
-	public class TooManyRequestsExceptionCategory : ExceptionCategory
+	public TooManyRequestsExceptionCategory(Func<Exception, bool> exceptionFilter) : base(exceptionFilter)
 	{
-		public TooManyRequestsExceptionCategory(Func<Exception, bool> exceptionFilter) : base(exceptionFilter)
-		{
-		}
-
-		public override string Name => ExceptionCategoryNames.TooManyRequests;
-		public override LogLevel LogLevel => LogLevel.None;
 	}
+
+	public override string Name => ExceptionCategoryNames.TooManyRequests;
+	public override LogLevel LogLevel => LogLevel.None;
 }
