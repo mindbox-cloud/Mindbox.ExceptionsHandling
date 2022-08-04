@@ -6,7 +6,7 @@ namespace Mindbox.ExceptionsHandling.GraphQL;
 
 public static class ConfigurationExtensions
 {
-	public static IRequestExecutorBuilder AddGraphQLExceptionsHandling(this IRequestExecutorBuilder requestBuilder)
+	public static IRequestExecutorBuilder AddExceptionsHandling(this IRequestExecutorBuilder requestBuilder)
 	{
 		requestBuilder
 			.AddErrorFilter(
