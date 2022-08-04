@@ -4,18 +4,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Mindbox.ExceptionsHandling.GraphQL;
 
-public class GraphQLLogErrorFilter : IErrorFilter
+public class GraphQLHandleErrorFilter : IErrorFilter
 {
 	private readonly IExceptionCategoryMatcher _exceptionCategoryMatcher;
 	private readonly ILogger _logger;
 
-	public GraphQLLogErrorFilter(IExceptionCategoryMatcher exceptionCategoryMatcher, ILoggerFactory loggerFactory)
+	public GraphQLHandleErrorFilter(IExceptionCategoryMatcher exceptionCategoryMatcher, ILoggerFactory loggerFactory)
 	{
 		if (loggerFactory == null) throw new ArgumentNullException(nameof(loggerFactory));
 
 		_exceptionCategoryMatcher = exceptionCategoryMatcher
 			?? throw new ArgumentNullException(nameof(exceptionCategoryMatcher));
-		_logger = loggerFactory.CreateLogger<GraphQLLogErrorFilter>();
+		_logger = loggerFactory.CreateLogger<GraphQLHandleErrorFilter>();
 	}
 
 	public IError OnError(IError error)

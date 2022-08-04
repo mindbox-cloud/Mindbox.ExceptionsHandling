@@ -10,7 +10,7 @@ using Moq;
 namespace Mindbox.ExceptionsHandling.Tests;
 
 [TestClass]
-public class GraphQLLogErrorFilterTests
+public class GraphQLHandleErrorFilterTests
 {
 	private const string MatchedCategoryName = "MatchedCategory";
 	private static readonly LogLevel _matchedLogLevel = LogLevel.Critical;
@@ -123,7 +123,7 @@ public class GraphQLLogErrorFilterTests
 			.Setup(factory => factory.CreateLogger(It.IsAny<string>()))
 			.Returns(_loggerStub);
 
-		var filter = new GraphQLLogErrorFilter(exceptionCategoryMatcherMock.Object, loggerFactoryMock.Object);
+		var filter = new GraphQLHandleErrorFilter(exceptionCategoryMatcherMock.Object, loggerFactoryMock.Object);
 
 		return filter.OnError(error);
 	}
