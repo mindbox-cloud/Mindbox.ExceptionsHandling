@@ -24,8 +24,8 @@ public class GraphQLHandleErrorFilter : IErrorFilter
 			throw new ArgumentNullException(nameof(error));
 
 		var categorizedError = CategorizeError(error);
-		LogError(categorizeError);
-		return EnrichError(error, categorizeError);
+		LogError(categorizedError);
+		return EnrichError(error, categorizedError);
 	}
 
 	private CategorizedError CategorizeError(IError error)
