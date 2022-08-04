@@ -29,7 +29,7 @@ public class GraphQLLogErrorFilterTests
 	}
 
 	[TestMethod]
-	public void OnError_WithSerializationException_Error()
+	public void OnError_WithSerializationException_ErrorLogLevel()
 	{
 		var initialError = new Error(
 			"SomeMessage",
@@ -46,7 +46,7 @@ public class GraphQLLogErrorFilterTests
 	}
 
 	[TestMethod]
-	public void OnError_WithoutException_Error()
+	public void OnError_WithoutException_ErrorLogLevel()
 	{
 		var initialError = new Error("SomeMessage");
 
