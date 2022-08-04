@@ -10,9 +10,6 @@ public static class ConfigurationExtensions
 	{
 		requestBuilder
 			.AddErrorFilter(
-				serviceProvider => new GraphQLCategoryMatchErrorFilter(
-					serviceProvider.GetApplicationService<IExceptionCategoryMatcher>()))
-			.AddErrorFilter(
 				serviceProvider => new GraphQLLogErrorFilter(
 					serviceProvider.GetApplicationService<IExceptionCategoryMatcher>(),
 					serviceProvider.GetApplicationService<ILoggerFactory>()));

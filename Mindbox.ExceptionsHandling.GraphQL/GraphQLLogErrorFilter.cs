@@ -23,16 +23,46 @@ public class GraphQLLogErrorFilter : IErrorFilter
 		if (error == null)
 			throw new ArgumentNullException(nameof(error));
 
+		var categorizeError = CategorizeError(error);
+		LogError(categorizeError);
+		return EnrichError(error, categorizeError);
+	}
+
+	private CategorizedError CategorizeError(IError error)
+	{
 		if (error.Exception is null or HotChocolate.Types.SerializationException)
 		{
-			_logger.Log(LogLevel.Error, error.Message);
+			return new CategorizedError(
+				LogLevel.Error,
+				ExceptionCategoryNames.InvalidRequest,
+				error.Message,
+				Exception: null);
 		}
 		else
 		{
 			var exceptionCategory = _exceptionCategoryMatcher.GetCategory(error.Exception);
-			_logger.Log(exceptionCategory.LogLevel, error.Exception, error.Exception.Message);
+			return new CategorizedError(
+				exceptionCategory.LogLevel,
+				exceptionCategory.Name,
+				error.Exception.Message,
+				error.Exception);
 		}
-
-		return error;
 	}
+
+	private void LogError(CategorizedError categorizedError)
+	{
+		_logger.Log(categorizedError.LogLevel, categorizedError.Exception, categorizedError.Message);
+	}
+
+	private IError EnrichError(IError error, CategorizedError categorizedError)
+	{
+		return error.Code != null
+			? error
+			: ErrorBuilder.FromError(error)
+				.SetMessage(categorizedError.Message)
+				.SetCode(categorizedError.CategoryName)
+				.Build();
+	}
+
+	private record CategorizedError(LogLevel LogLevel, string CategoryName, string Message, Exception? Exception);
 }

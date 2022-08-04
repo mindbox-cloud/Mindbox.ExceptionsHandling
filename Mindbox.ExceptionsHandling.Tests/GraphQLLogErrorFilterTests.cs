@@ -12,11 +12,60 @@ namespace Mindbox.ExceptionsHandling.Tests;
 [TestClass]
 public class GraphQLLogErrorFilterTests
 {
+	private const string MatchedCategoryName = "MatchedCategory";
 	private static readonly LogLevel _matchedLogLevel = LogLevel.Critical;
 	private readonly LoggerStub _loggerStub = new();
 
 	[TestMethod]
-	public void OnError_WithException_MatchedLogLevel()
+	public void OnError_WihCode_ErrorNotModified()
+	{
+		var initialError = new Error("SomeMessage", "SomeCode");
+
+		var processedError = OnError(initialError);
+
+		Assert.AreEqual("SomeCode", processedError.Code);
+		Assert.AreEqual(initialError, processedError);
+	}
+
+	[TestMethod]
+	public void OnError_WithoutCode_WithoutException_ErrorCodeIsInvalidRequest()
+	{
+		var initialError = new Error("SomeMessage");
+
+		var processedError = OnError(initialError);
+
+		Assert.AreEqual(ExceptionCategoryNames.InvalidRequest, processedError.Code);
+		Assert.AreEqual("SomeMessage", processedError.Message);
+	}
+
+	[TestMethod]
+	public void OnError_WithoutCode_WithSerializationException_ErrorCodeIsInvalidRequest()
+	{
+		var initialError = new Error(
+			"SomeMessage",
+			exception: new HotChocolate.Types.SerializationException(
+				"MessageFromException",
+				new Mock<HotChocolate.Types.IType>().Object));
+
+		var processedError = OnError(initialError);
+
+		Assert.AreEqual(ExceptionCategoryNames.InvalidRequest, processedError.Code);
+		Assert.AreEqual("SomeMessage", processedError.Message);
+	}
+
+	[TestMethod]
+	public void OnError_WithoutCode_WithException_ErrorCodeIsMatchedCategory()
+	{
+		var initialError = new Error("SomeMessage", exception: new Exception("MessageFromException"));
+
+		var processedError = OnError(initialError);
+
+		Assert.AreEqual(MatchedCategoryName, processedError.Code);
+		Assert.AreEqual("MessageFromException", processedError.Message);
+	}
+
+	[TestMethod]
+	public void OnError_WithException_LoggedWithMatchedLogLevel()
 	{
 		var initialError = new Error("SomeMessage", exception: new Exception("MessageFromException"));
 
@@ -29,7 +78,7 @@ public class GraphQLLogErrorFilterTests
 	}
 
 	[TestMethod]
-	public void OnError_WithSerializationException_ErrorLogLevel()
+	public void OnError_WithSerializationException_LoggedWithErrorLogLevel()
 	{
 		var initialError = new Error(
 			"SomeMessage",
@@ -46,7 +95,7 @@ public class GraphQLLogErrorFilterTests
 	}
 
 	[TestMethod]
-	public void OnError_WithoutException_ErrorLogLevel()
+	public void OnError_WithoutException_LoggedWithErrorLogLevel()
 	{
 		var initialError = new Error("SomeMessage");
 
@@ -58,9 +107,10 @@ public class GraphQLLogErrorFilterTests
 		Assert.AreEqual("SomeMessage", message);
 	}
 
-	private void OnError(IError error)
+	private IError OnError(IError error)
 	{
 		var exceptionCategoryMock = new Mock<IExceptionCategory>();
+		exceptionCategoryMock.SetupGet(category => category.Name).Returns(MatchedCategoryName);
 		exceptionCategoryMock.SetupGet(category => category.LogLevel).Returns(_matchedLogLevel);
 
 		var exceptionCategoryMatcherMock = new Mock<IExceptionCategoryMatcher>();
@@ -75,7 +125,7 @@ public class GraphQLLogErrorFilterTests
 
 		var filter = new GraphQLLogErrorFilter(exceptionCategoryMatcherMock.Object, loggerFactoryMock.Object);
 
-		filter.OnError(error);
+		return filter.OnError(error);
 	}
 
 	private class LoggerStub : ILogger
