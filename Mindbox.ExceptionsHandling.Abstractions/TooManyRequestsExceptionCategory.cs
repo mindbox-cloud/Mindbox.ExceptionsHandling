@@ -2,7 +2,7 @@ using System;
 
 using Microsoft.Extensions.Logging;
 
-namespace Mindbox.ExceptionsHandling;
+namespace Mindbox.ExceptionsHandling.Abstractions;
 
 public class TooManyRequestsExceptionCategory : ExceptionCategory
 {

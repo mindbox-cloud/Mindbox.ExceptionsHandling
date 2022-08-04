@@ -2,6 +2,7 @@ using System;
 
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Mindbox.ExceptionsHandling.Abstractions;
 
 namespace Mindbox.ExceptionsHandling.Tests;
 

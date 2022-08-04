@@ -1,6 +1,6 @@
 using System;
 
-namespace Mindbox.ExceptionsHandling;
+namespace Mindbox.ExceptionsHandling.Abstractions;
 
 public interface IExceptionCategoryMatcher
 {

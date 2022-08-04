@@ -1,4 +1,4 @@
-namespace Mindbox.ExceptionsHandling;
+namespace Mindbox.ExceptionsHandling.Abstractions;
 
 public static class ExceptionCategoryNames
 {
