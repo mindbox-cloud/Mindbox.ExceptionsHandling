@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.6.0" />
+    <PackageReference Include="HotChocolate.Execution" Version="12.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mindbox.ExceptionsHandling.Abstractions\Mindbox.ExceptionsHandling.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
