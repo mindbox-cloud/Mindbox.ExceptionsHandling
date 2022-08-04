@@ -14,8 +14,7 @@ public class GraphQLLogErrorFilter : IErrorFilter
 		if (loggerFactory == null) throw new ArgumentNullException(nameof(loggerFactory));
 
 		_exceptionCategoryMatcher = exceptionCategoryMatcher
-		                            ?? throw new ArgumentNullException(nameof(exceptionCategoryMatcher));
-
+			?? throw new ArgumentNullException(nameof(exceptionCategoryMatcher));
 		_logger = loggerFactory.CreateLogger<GraphQLLogErrorFilter>();
 	}
 
@@ -23,11 +22,7 @@ public class GraphQLLogErrorFilter : IErrorFilter
 	{
 		if (error == null)
 			throw new ArgumentNullException(nameof(error));
-		return ProcessError(error);
-	}
 
-	private IError ProcessError(IError error)
-	{
 		if (error.Exception is null or HotChocolate.Types.SerializationException)
 		{
 			_logger.Log(LogLevel.Error, error.Message);

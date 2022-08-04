@@ -10,7 +10,7 @@ public class GraphQLCategoryMatchErrorFilter : IErrorFilter
 	public GraphQLCategoryMatchErrorFilter(IExceptionCategoryMatcher exceptionCategoryMatcher)
 	{
 		_exceptionCategoryMatcher = exceptionCategoryMatcher
-		                            ?? throw new ArgumentNullException(nameof(exceptionCategoryMatcher));
+			?? throw new ArgumentNullException(nameof(exceptionCategoryMatcher));
 	}
 
 	public IError OnError(IError error)
