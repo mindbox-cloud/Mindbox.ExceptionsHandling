@@ -23,7 +23,7 @@ public class GraphQLHandleErrorFilter : IErrorFilter
 		if (error == null)
 			throw new ArgumentNullException(nameof(error));
 
-		var categorizeError = CategorizeError(error);
+		var categorizedError = CategorizeError(error);
 		LogError(categorizeError);
 		return EnrichError(error, categorizeError);
 	}
