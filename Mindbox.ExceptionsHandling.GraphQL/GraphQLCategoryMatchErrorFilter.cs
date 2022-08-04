@@ -24,7 +24,7 @@ public class GraphQLCategoryMatchErrorFilter : IErrorFilter
 
 	private IError ProcessError(IError error)
 	{
-		if (error.Exception is null)
+		if (error.Exception is null or HotChocolate.Types.SerializationException)
 		{
 			return ErrorBuilder.FromError(error)
 				.SetMessage(error.Message)

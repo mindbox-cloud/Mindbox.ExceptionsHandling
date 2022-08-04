@@ -34,6 +34,21 @@ public class GraphQLCategoryMatchErrorFilterTests
 	}
 
 	[TestMethod]
+	public void OnError_WithoutCode_WithSerializationException_InvalidRequest()
+	{
+		var initialError = new Error(
+			"SomeMessage",
+			exception: new HotChocolate.Types.SerializationException(
+				"MessageFromException",
+				new Mock<HotChocolate.Types.IType>().Object));
+
+		var processedError = OnError(initialError);
+
+		Assert.AreEqual(ExceptionCategoryNames.InvalidRequest, processedError.Code);
+		Assert.AreEqual("SomeMessage", processedError.Message);
+	}
+
+	[TestMethod]
 	public void OnError_WithoutCode_WithException_MatchedCategory()
 	{
 		var initialError = new Error("SomeMessage", exception: new Exception("MessageFromException"));
