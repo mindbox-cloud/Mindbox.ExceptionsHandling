@@ -90,7 +90,7 @@ public class GraphQLHandleErrorFilterTests
 
 		var (logLevel, exception, message) = _loggerStub.GetSingleLoggedMessage();
 		Assert.AreEqual(LogLevel.Error, logLevel);
-		Assert.AreEqual(null, exception);
+		Assert.AreEqual(initialError.Exception, exception);
 		Assert.AreEqual("SomeMessage", message);
 	}
 
@@ -105,6 +105,17 @@ public class GraphQLHandleErrorFilterTests
 		Assert.AreEqual(LogLevel.Error, logLevel);
 		Assert.AreEqual(null, exception);
 		Assert.AreEqual("SomeMessage", message);
+	}
+
+	[TestMethod]
+	public void OnError_WithSuppressLogging_NotLogged()
+	{
+		var initialError = new Error("SomeMessage")
+			.SetExtension("suppressLogging", true);
+
+		OnError(initialError);
+
+		_loggerStub.AsserHasNoLoggedMessages();
 	}
 
 	private IError OnError(IError error)
@@ -147,5 +158,7 @@ public class GraphQLHandleErrorFilterTests
 		}
 
 		public (LogLevel, Exception?, string) GetSingleLoggedMessage() => _loggedMessages.Single();
+
+		public void AsserHasNoLoggedMessages() => Assert.IsFalse(_loggedMessages.Any());
 	}
 }
