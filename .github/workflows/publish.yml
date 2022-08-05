@@ -28,4 +28,4 @@ jobs:
       - name: Pack
         run: dotnet pack ./Mindbox.ExceptionsHandling.sln -c Release -p:BuildNumber=${{ github.run_number }}
       - name: Publish
-        run: dotnet nuget push **/*.nupkg -k ${{secrets.MINDBOX_NUGET_AUTH_TOKEN}} -s https://www.nuget.org/api/v2/package
+        run: dotnet nuget push **/*.nupkg -k ${{secrets.MINDBOX_NUGET_AUTH_TOKEN}} -s https://www.nuget.org/api/v2/package --skip-duplicate
