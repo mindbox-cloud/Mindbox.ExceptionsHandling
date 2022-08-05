@@ -4,6 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Mindbox.ExceptionsHandling.GraphQL;
 
+/// <summary>
+/// Must be registered after other error filters in order for logging suppression to work.
+/// </summary>
 public class GraphQLHandleErrorFilter : IErrorFilter
 {
 	private readonly IExceptionCategoryMatcher _exceptionCategoryMatcher;
@@ -25,7 +28,7 @@ public class GraphQLHandleErrorFilter : IErrorFilter
 
 		var categorizedError = CategorizeError(error);
 		LogError(categorizedError);
-		return EnrichError(error, categorizedError);
+		return EnrichError(categorizedError);
 	}
 
 	private CategorizedError CategorizeError(IError error)
@@ -36,7 +39,7 @@ public class GraphQLHandleErrorFilter : IErrorFilter
 				LogLevel.Error,
 				ExceptionCategoryNames.InvalidRequest,
 				error.Message,
-				Exception: null);
+				error);
 		}
 		else
 		{
@@ -45,24 +48,31 @@ public class GraphQLHandleErrorFilter : IErrorFilter
 				exceptionCategory.LogLevel,
 				exceptionCategory.Name,
 				error.Exception.Message,
-				error.Exception);
+				error);
 		}
 	}
 
 	private void LogError(CategorizedError categorizedError)
 	{
-		_logger.Log(categorizedError.LogLevel, categorizedError.Exception, categorizedError.Message);
+		var shouldSuppressLogging =
+			categorizedError.Error.Extensions?.TryGetValue("suppressLogging", out var suppressLogging) == true &&
+			suppressLogging is true;
+
+		if (!shouldSuppressLogging)
+		{
+			_logger.Log(categorizedError.LogLevel, categorizedError.Error.Exception, categorizedError.Message);
+		}
 	}
 
-	private IError EnrichError(IError error, CategorizedError categorizedError)
+	private IError EnrichError(CategorizedError categorizedError)
 	{
-		return error.Code != null
-			? error
-			: ErrorBuilder.FromError(error)
+		return categorizedError.Error.Code != null
+			? categorizedError.Error
+			: ErrorBuilder.FromError(categorizedError.Error)
 				.SetMessage(categorizedError.Message)
 				.SetCode(categorizedError.CategoryName)
 				.Build();
 	}
 
-	private record CategorizedError(LogLevel LogLevel, string CategoryName, string Message, Exception? Exception);
+	private record CategorizedError(LogLevel LogLevel, string CategoryName, string Message, IError Error);
 }
