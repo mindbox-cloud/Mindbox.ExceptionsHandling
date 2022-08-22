@@ -10,6 +10,6 @@ public class ValidationExceptionCategory : ExceptionCategory
 	{
 	}
 
-	public override string Name => ExceptionCategoryNames.ValidationException;
+	public override string Name => ExceptionCategoryNames.ValidationError;
 	public override LogLevel LogLevel => LogLevel.None;
 }
