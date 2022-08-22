@@ -9,4 +9,5 @@ public static class ExceptionCategoryNames
 	public const string InvalidRequest = "InvalidRequest";
 	public const string ServiceUnavailable = "ServiceUnavailable";
 	public const string TooManyRequests = "TooManyRequests";
+	public const string ValidationError = "ValidationError";
 }
