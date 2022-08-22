@@ -54,14 +54,7 @@ public class GraphQLHandleErrorFilter : IErrorFilter
 
 	private void LogError(CategorizedError categorizedError)
 	{
-		var shouldSuppressLogging =
-			categorizedError.Error.Extensions?.TryGetValue("suppressLogging", out var suppressLogging) == true &&
-			suppressLogging is true;
-
-		if (!shouldSuppressLogging)
-		{
-			_logger.Log(categorizedError.LogLevel, categorizedError.Error.Exception, categorizedError.Message);
-		}
+		_logger.Log(categorizedError.LogLevel, categorizedError.Error.Exception, categorizedError.Message);
 	}
 
 	private IError EnrichError(CategorizedError categorizedError)
