@@ -107,6 +107,17 @@ public class GraphQLHandleErrorFilterTests
 		Assert.AreEqual("SomeMessage", message);
 	}
 
+	[TestMethod]
+	public void OnError_WithSuppressLogging_NotLogged()
+	{
+		var initialError = new Error("SomeMessage")
+			.SetExtension("suppressLogging", true);
+
+		OnError(initialError);
+
+		_loggerStub.AsserHasNoLoggedMessages();
+	}
+
 	private IError OnError(IError error)
 	{
 		var exceptionCategoryMock = new Mock<IExceptionCategory>();
