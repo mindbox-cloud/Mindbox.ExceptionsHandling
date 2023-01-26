@@ -69,6 +69,7 @@ public class GraphQLHandleErrorFilter : IErrorFilter
 		return categorizedError.Error.Code != null
 			? categorizedError.Error
 			: ErrorBuilder.FromError(categorizedError.Error)
+				.SetExceptionData(categorizedError.Error.Exception)
 				.SetMessage(categorizedError.Message)
 				.SetCode(categorizedError.CategoryName)
 				.Build();
