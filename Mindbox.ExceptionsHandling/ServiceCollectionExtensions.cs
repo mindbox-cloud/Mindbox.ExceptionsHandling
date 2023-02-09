@@ -11,5 +11,7 @@ public static class ServiceCollectionExtensions
 			.AddExceptionCategory(
 				new UnauthorizedAccessExceptionCategory(exception => exception is UnauthorizedAccessException))
 			.AddExceptionCategory(
-				new ServiceUnavailableExceptionCategory(exception => exception is TimeoutException));
+				new ServiceUnavailableExceptionCategory(exception => exception is TimeoutException))
+			.AddExceptionCategory(
+				new InfoExceptionCategory(exception => exception is OperationCanceledException));
 }
