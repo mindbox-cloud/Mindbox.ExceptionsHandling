@@ -2,6 +2,7 @@ namespace Mindbox.ExceptionsHandling;
 
 public static class ExceptionCategoryNames
 {
+	public const string Info = "Info";
 	public const string Default = "Default";
 	public const string AccessDenied = "AccessDenied";
 	public const string UnauthorizedAccess = "UnauthorizedAccess";
