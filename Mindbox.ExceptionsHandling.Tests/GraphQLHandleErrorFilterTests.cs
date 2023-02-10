@@ -143,9 +143,9 @@ public class GraphQLHandleErrorFilterTests
 	{
 		private readonly List<(LogLevel, Exception?, string)> _loggedMessages = new();
 
-		public IDisposable BeginScope<TState>(TState state) => throw new NotSupportedException();
-
 		public bool IsEnabled(LogLevel logLevel) => true;
+
+		public IDisposable? BeginScope<TState>(TState state) where TState : notnull => throw new NotImplementedException();
 
 		public void Log<TState>(
 			LogLevel logLevel,
