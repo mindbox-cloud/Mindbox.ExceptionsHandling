@@ -11,5 +11,5 @@ public class InvalidRequestExceptionCategory : ExceptionCategory
 	}
 
 	public override string Name => ExceptionCategoryNames.InvalidRequest;
-	public override LogLevel LogLevel => LogLevel.Error;
+	public override LogLevel LogLevel => LogLevel.Information;
 }
