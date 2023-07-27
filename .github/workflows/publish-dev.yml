@@ -20,7 +20,9 @@ jobs:
         with:
           dotnet-version: 3.1.x
       - name: Install dependencies
-        run: dotnet restore
+        run: |
+          dotnet nuget add source --username USERNAME --password ${{ secrets.GH_FULL_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/mindbox-cloud/index.json"
+          dotnet restore
       - name: Build
         run: dotnet build ./Mindbox.ExceptionsHandling.sln --configuration Release --no-restore
       - name: Test
@@ -28,4 +30,4 @@ jobs:
       - name: Pack
         run: dotnet pack ./Mindbox.ExceptionsHandling.sln -c Release -p:BuildNumber=${{ github.run_number }} -p:VersionTag="-dev"
       - name: Publish
-        run: dotnet nuget push **/*.nupkg -k ${{secrets.MINDBOX_NUGET_AUTH_TOKEN}} -s https://www.nuget.org/api/v2/package
+        run: dotnet nuget push **/*.nupkg -k ${{ secrets.GH_FULL_TOKEN }} -s "https://nuget.pkg.github.com/mindbox-cloud/index.json"
