@@ -11,5 +11,5 @@ public class AccessDeniedExceptionCategory : ExceptionCategory
 	}
 
 	public override string Name => ExceptionCategoryNames.AccessDenied;
-	public override LogLevel LogLevel => LogLevel.Error;
+	public override LogLevel LogLevel => LogLevel.Warning;
 }
