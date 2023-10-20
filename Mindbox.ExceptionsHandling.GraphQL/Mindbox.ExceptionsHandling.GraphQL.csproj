@@ -3,8 +3,8 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore" Version="12.6.0" />
-    <PackageReference Include="HotChocolate.Execution" Version="12.6.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="13.5.1" />
+    <PackageReference Include="HotChocolate.Execution" Version="13.5.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mindbox.ExceptionsHandling.Abstractions\Mindbox.ExceptionsHandling.Abstractions.csproj" />
