@@ -9,6 +9,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <VersionMajor>8</VersionMajor>
