@@ -10,5 +10,5 @@ public static class ConfigurationExtensions
 	public static IServiceCollection AddGraphQLErrorHandling(this IServiceCollection services) =>
 		services
 			.AddErrorFilter<GraphQLHandleErrorFilter>()
-			.AddHttpResultSerializer<GraphQLHttpAgnosticResultSerializer>();
+			.AddHttpResponseFormatter<GraphQLHttpAgnosticResultFormatter>();
 }

@@ -5,15 +5,17 @@ using HotChocolate.Execution;
 
 namespace Mindbox.ExceptionsHandling.GraphQL;
 
-public class GraphQLHttpAgnosticResultSerializer : DefaultHttpResultSerializer
+public class GraphQLHttpAgnosticResultFormatter : DefaultHttpResponseFormatter
 {
-	public override HttpStatusCode GetStatusCode(IExecutionResult result)
+	protected override HttpStatusCode OnDetermineStatusCode(
+		IQueryResult result,
+		FormatInfo format,
+		HttpStatusCode? proposedStatusCode)
 	{
 		return result switch
 		{
+			// This is required for our frontend
 			QueryResult => HttpStatusCode.OK,
-			DeferredQueryResult => HttpStatusCode.OK,
-			BatchQueryResult => HttpStatusCode.OK,
 			_ => HttpStatusCode.InternalServerError
 		};
 	}
