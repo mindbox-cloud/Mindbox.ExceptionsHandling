@@ -12,7 +12,6 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mindbox.ExceptionsHandling.GraphQL\Mindbox.ExceptionsHandling.GraphQL.csproj" />
     <ProjectReference Include="..\Mindbox.ExceptionsHandling\Mindbox.ExceptionsHandling.csproj" />
   </ItemGroup>
 </Project>
