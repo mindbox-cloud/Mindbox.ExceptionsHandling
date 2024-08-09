@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Mindbox.ExceptionsHandling.Template</RootNamespace>
+    <AssemblyName>Mindbox.ExceptionsHandling.Template</AssemblyName>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mindbox.ExceptionsHandling.Abstractions\Mindbox.ExceptionsHandling.Abstractions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Sentry.Extensions.Logging" Version="4.8.1" />
+  </ItemGroup>
+</Project>
