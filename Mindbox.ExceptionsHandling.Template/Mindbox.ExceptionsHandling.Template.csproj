@@ -3,7 +3,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Mindbox.ExceptionsHandling.Template</RootNamespace>
     <AssemblyName>Mindbox.ExceptionsHandling.Template</AssemblyName>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
