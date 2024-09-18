@@ -27,6 +27,8 @@ public static class ServiceCollectionExtensions
 
 		services.AddSingleton<SentryExceptionsCategoryProcessor>();
 
+		services.ConfigureOptions<SentryOptionsConfiguration>();
+
 		return services;
 	}
 }
