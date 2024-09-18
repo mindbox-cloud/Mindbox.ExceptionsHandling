@@ -9,6 +9,7 @@
     <ProjectReference Include="..\Mindbox.ExceptionsHandling.Abstractions\Mindbox.ExceptionsHandling.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Sentry.AspNetCore" Version="3.29.1" />
     <PackageReference Include="Sentry.Extensions.Logging" Version="3.29.1" />
   </ItemGroup>
 </Project>

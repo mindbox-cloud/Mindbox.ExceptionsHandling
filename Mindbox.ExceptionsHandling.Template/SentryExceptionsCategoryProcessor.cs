@@ -4,7 +4,7 @@ using Sentry.Extensibility;
 
 namespace Mindbox.ExceptionsHandling.Template;
 
-public class SentryExceptionsCategoryProcessor
+internal class SentryExceptionsCategoryProcessor
 	: ISentryEventProcessor
 {
 	private readonly IExceptionCategoryMatcher _exceptionCategoryMatcher;
