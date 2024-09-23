@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Options;
-using Sentry;
 using Sentry.AspNetCore;
 using Sentry.Extensions.Logging;
 using Sentry.NLog;
