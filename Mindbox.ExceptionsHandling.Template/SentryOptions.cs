@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Mindbox.ExceptionsHandling.Template;
 
-public record SentryOptions
+internal record SentryOptions
 {
 	public const string SectionName = "Sentry";
 
